@@ -2,7 +2,7 @@
   <header id="header" data-state="inactive">
     <div class="container">
       <div class="box-logo">
-        <img src="../assets/images/todo-logo.png" alt="Logo Todo">
+       <span>Coloque Sua imagem Aqui</span>
       </div>
 
       <nav class="menu-header">
