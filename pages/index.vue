@@ -15,7 +15,7 @@
   <body>
   <AppHeader/>
   <main>
-    <AppBanner/>
+    <AppBanner :title="state.title" :sub-title="state.subTitle" />
     <AppContactForm/>
     <AppAboutProduct/>
   </main>
@@ -23,15 +23,29 @@
   </html>
 </template>
 
-<script>
+<script lang="ts">
 import {defineComponent} from 'vue';
 import AppHeader from "../components/AppHeader";
 import AppBanner from "../components/AppBanner";
 import AppContactForm from "../components/AppContactForm";
 import AppAboutProduct from "../components/AppAboutProduct";
 
+
 export default defineComponent({
   name: 'IndexPage',
-  components: {AppAboutProduct, AppContactForm, AppBanner, AppHeader}
+  components: {AppAboutProduct, AppContactForm, AppBanner, AppHeader},
+  data() {
+    return {
+      state: {
+        title: "",
+        subTitle: ""
+      }
+    }
+  },
+  async mounted() {
+    const contentResponse = await this.$contentful.fetchHeroSectionContent();
+    this.state.title = contentResponse.fields.title
+    this.state.subTitle = contentResponse.fields.subTitle
+  }
 })
 </script>
