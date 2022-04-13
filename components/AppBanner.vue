@@ -2,11 +2,9 @@
   <section class="section-banner">
     <div>
       <div class="banner-title">
-        <h1>O <strong>sistema de gestão</strong> ideal para empresas que precisam de um <strong>controle
-          completo</strong></h1>
+        <h1>{{ title }}</h1>
 
-        <h2>O QS é um sistema de gestão empresarial que otimiza seu tempo, garantindo mais segurança para os controles
-          diários do seu negócio.</h2>
+        <h2>{{ subTitle }}</h2>
       </div>
 
       <div class="banner-trial">
@@ -29,5 +27,15 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'AppBanner',
+  props: {
+    title: {
+      type: String,
+      default: ""
+    },
+    subTitle: {
+      type: String,
+      default: ""
+    }
+  }
 })
 </script>
