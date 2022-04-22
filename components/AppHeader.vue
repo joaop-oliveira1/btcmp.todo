@@ -6,6 +6,7 @@
       </div>
 
      <slot></slot>
+
     </div>
   </header>
 </template>
