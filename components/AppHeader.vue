@@ -4,6 +4,9 @@
       <div class="box-logo">
         <span>Coloque Sua imagem Aqui</span>
       </div>
+
+     <slot></slot>
+
     </div>
   </header>
 </template>
