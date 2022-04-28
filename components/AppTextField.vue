@@ -1,21 +1,32 @@
 <template>
-  <label :id="`label_${id}`" :for="`input_${id}`" :class="labelClass" ref="label">{{ label }}</label>
+  <label
+    :id="`label_${id}`"
+    :for="`input_${id}`"
+    :class="labelClass"
+    ref="label"
+    >{{ label }}</label
+  >
   <slot v-if="override" :id="id"></slot>
-  <input v-if="!override" :id="`input_${id}`" :type="type"
-         :class="inputClass"
-         :required="required"
-         :disabled="disabled"
-         :value="value"
-         ref="input"
-         @input="handleInput"/>
+  <input
+    v-if="!override"
+    :id="`input_${id}`"
+    :name="name"
+    :type="type"
+    :class="inputClass"
+    :required="required"
+    :disabled="disabled"
+    :value="modelValue"
+    ref="input"
+    @input="handleInput"
+  />
 </template>
 
 <script lang="ts">
-import * as uuid from 'uuid';
-import {defineComponent} from 'vue'
+import * as uuid from "uuid";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'AppTextField',
+  name: "AppTextField",
   props: {
     id: {
       type: String,
@@ -23,7 +34,11 @@ export default defineComponent({
     },
     label: {
       type: String,
-      default: ""
+      default: "",
+    },
+    name: {
+      type: String,
+      default: "",
     },
     labelClass: {
       type: [Object, Array, String],
@@ -35,11 +50,15 @@ export default defineComponent({
     },
     type: {
       type: String,
-      default: "text"
+      default: "text",
+    },
+    modelValue: {
+      type: String,
+      default: "",
     },
     value: {
       type: String,
-      default: ""
+      default: "",
     },
     required: {
       type: Boolean,
@@ -51,13 +70,14 @@ export default defineComponent({
     },
     override: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
+  emits: ["update:modelValue"],
   methods: {
     handleInput(event) {
-      this.$emit('input', event);
-    }
-  }
-})
+      this.$emit("update:modelValue", event.target.value);
+    },
+  },
+});
 </script>
