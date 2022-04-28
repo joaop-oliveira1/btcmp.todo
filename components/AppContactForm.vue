@@ -86,7 +86,7 @@ export default defineComponent({
         const payload = this.createContactPayload();
         await this.state.form.validation.schema.validate(payload);
         const formData = this.parseToFormData(payload);
-        const rawResponse = await fetch({
+        const rawResponse = await fetch("/", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: formData,
