@@ -1,7 +1,7 @@
 <template>
   <nav class="menu-header">
     <ul>
-      <li><a class="menu-option" href="#">Features</a></li>
+      <AppNavItem link="#features" title="Features"/>
       <li><a class="menu-option" href="#">Sobre</a></li>
       <li><a class="menu-option" href="#">Preços</a></li>
       <li><a class="menu-option" href="#">Contato</a></li>
