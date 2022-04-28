@@ -50,6 +50,7 @@
 import { defineComponent } from "vue";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
+import { URLSearchParams } from "url";
 
 export default defineComponent({
   name: "AppContactForm",
@@ -84,11 +85,25 @@ export default defineComponent({
       try {
         const payload = this.createContactPayload();
         await this.state.form.validation.schema.validate(payload);
-        // TODO: Chamar o servidor caso a validacao esteja correta.
+        const formData = this.parseToFormData(payload);
+        const rawResponse = await fetch({
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: formData,
+        });
+        console.log(rawResponse.json());
+        window.alert("Mensagem enviada com sucesso");
       } catch (error) {
         window.alert(error.message);
         console.error(error);
       }
+    },
+    parseToFormData(payload) {
+      const formData = new FormData();
+      Object.keys(payload).forEach((key) => {
+        formData.append(key, payload[key]);
+      });
+      return formData;
     },
     createContactPayload() {
       return {
