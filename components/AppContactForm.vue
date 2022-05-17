@@ -54,6 +54,7 @@ import Swal from "sweetalert2";
 export default defineComponent({
   name: "AppContactForm",
   data() {
+    // gerenciamento de State.
     return {
       state: {
         form: {
@@ -85,19 +86,28 @@ export default defineComponent({
         const payload = this.createContactPayload();
         await this.state.form.validation.schema.validate(payload);
         const formData = this.parseToFormData(payload);
-        const rawResponse = await fetch("/", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(formData).toString(),
-        });
-        console.log(rawResponse.json());
+        // Fetch vs Axios
+        const rawResponse = await this.sendUserContactInformation(formData);
+        console.log(rawResponse);
         window.alert("Mensagem enviada com sucesso");
       } catch (error) {
         window.alert(error.message);
         console.error(error);
       }
     },
+
+    // POST - / - Send
+    // GET - /  - Fetch
+
+    sendUserContactInformation(formData) {
+      return fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
+      });
+    },
     parseToFormData(payload) {
+      // Oque formdata vs json
       const formData = new FormData();
       Object.keys(payload).forEach((key) => {
         formData.append(key, payload[key]);
